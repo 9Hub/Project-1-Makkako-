@@ -10,7 +10,7 @@
 
 <form class="example-container" [formGroup]="prisionerForm" (ngSubmit)="onSubmit()">
   <mat-form-field>
-    <input matInput placeholder="Name" formControlName="firstName">
+    <input matInput placeholder="Name" formControlName="name">
   </mat-form-field>
 
   <mat-form-field>
@@ -52,7 +52,9 @@
     </mat-select>
   </mat-form-field>
 
-  <button mat-button type="submit">Submit</button>
+  <button mat-button type="submit" class="buttton-submit">Submit</button>
 </form>
 
-<div>{{ prisioner }}</div>
+<mat-chip-list class="container-button-atras">
+  <mat-chip color="Crime" selected>Atras</mat-chip>
+</mat-chip-list>

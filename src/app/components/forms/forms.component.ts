@@ -1,6 +1,7 @@
 import { Component, OnInit, createPlatformFactory } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PrisionerService } from '../servicios/prisioner.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-forms',
@@ -14,27 +15,40 @@ export class FormsComponent implements OnInit {
 
   constructor(
     private service:PrisionerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) {}
 
 
   ngOnInit() {
-    this.service.getPrisioner().subscribe(prisioner => {
-      console.log(prisioner);
-      this.prisioner = prisioner;
-    }, error => console.error(error));
     this.createForm();
+    
   }
 
   createForm() {
     this.prisionerForm = this.fb.group({
-      firstName: [''],
-      lastName: ['']
+      name: [''],
+      lastName: [''],
+      age:[''],
+      ci:[''],
+      gende:[''],
+      charges:[''],
+      background:[''],
+      crimePriority:['']
     });
   }
 
   onSubmit() {
-    return this;
+    if(this.prisionerForm.invalid){
+      return console.log(this.prisionerForm.value)
+    }
+    
+    this.service.addPricioner(this.prisionerForm.value).subscribe(prisioner => {
+      if(this.prisionerForm.invalid){
+        console.log("dato invalido");
+      }else{
+        console.log("add new pricioner!");
+      }
+    }, error => console.error(error));
   }
-  
 }
